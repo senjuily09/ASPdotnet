@@ -13,20 +13,30 @@ namespace ASPdotnet
     {
         public static void Main(string[] args)
         {
-            List<student> students = new List<student>();
-            students.Add(new student { name = "Alice", age = 20 });
-            students.Add(new student { name = "Bob", age = 22 });
-
-            foreach (student s1 in students)
+            List<student> s = new List<student>();
+            s.Add(new student { name = "s1", age = 20 });
+            s.Add(new student { name = "s2", age = 21 });
+            var result = s.Where(s => s.age >= 20);
+            foreach(student s1 in result)
             {
-                Console.WriteLine($"Name: {s1.name}, Age: {s1.age}");
+                Console.WriteLine($"{s1.name} {s1.age}");
+            }
+            var result2 = s.FirstOrDefault(s => s.name == "s1");
+            Console.WriteLine($"{result2.name} {result2.age}");
 
-            }
-            var adults = students.Where(s => s.age >= 21);
-            foreach(student s in adults)
-            {
-                Console.WriteLine($"{s.name}{s.age}");
-            }
+            // dictionary 
+            Dictionary<int , string> d = new Dictionary<int, string>();
+            d.Add(1, "one");
+            d.Add(2,"two");
+            Console.WriteLine(d[2]);
+
+            var builder = WebApplication.CreateBuilder(args);
+
+            var app = builder.Build();
+
+            app.MapGet("/", () => "Hello World!");
+
+            app.Run();
         }
     }
 }
