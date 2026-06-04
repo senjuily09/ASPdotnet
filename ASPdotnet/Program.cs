@@ -1,37 +1,28 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.AspNetCore.Builder;
 
-namespace ASPdotnet
+namespace ASPdotnot
 {
-    class student
+    public class Person
     {
-        public string name { get; set; }
-        public int age { get; set; }
+        public string Name { get; set; }
+        public int Age { get; set; }
     }
+
     public class Program
     {
         public static void Main(string[] args)
         {
-            List<student> s = new List<student>();
-            s.Add(new student { name = "s1", age = 20 });
-            s.Add(new student { name = "s2", age = 21 });
-            var result = s.Where(s => s.age >= 20);
-            foreach(student s1 in result)
+            var people = new List<Person>
             {
-                Console.WriteLine($"{s1.name} {s1.age}");
-            }
-            var result2 = s.FirstOrDefault(s => s.name == "s1");
-            Console.WriteLine($"{result2.name} {result2.age}");
+                new Person { Name = "Alice", Age = 30 }
+            };
 
-            // dictionary 
-            Dictionary<int , string> d = new Dictionary<int, string>();
-            d.Add(1, "one");
-            d.Add(2,"two");
-            Console.WriteLine(d[2]);
+            foreach (var person in people)
+            {
+                Console.WriteLine($"{person.Name} {person.Age}");
+            }
 
             var builder = WebApplication.CreateBuilder(args);
-
             var app = builder.Build();
 
             app.MapGet("/", () => "Hello World!");
