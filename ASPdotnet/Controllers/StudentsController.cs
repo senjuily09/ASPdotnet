@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace ASPdotnot.Controllers
+namespace ASPdotnet.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -10,6 +10,21 @@ namespace ASPdotnot.Controllers
         public IActionResult GetStudents()
         {
             return Ok("Hello Students");
+        }
+        [HttpPost]
+        public IActionResult AddStudent()
+        {
+            return Ok("Student Added");
+        }
+        [HttpPut]
+        public IActionResult UpdateStudent()
+        {
+            return Ok("Student Updated");
+        }
+        [HttpDelete]
+        public IActionResult DeleteStudent()
+        {
+            return Ok("Student Deleted");
         }
     }
 }
