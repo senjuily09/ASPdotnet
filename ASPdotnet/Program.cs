@@ -1,18 +1,18 @@
 using Microsoft.AspNetCore.Builder;
 
-namespace ASPdotnet{
+namespace ASPdotnet
+{
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main(String[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllers();
             var app = builder.Build();
             app.MapControllers();
-            app.MapGet("/", () => "hello world ");
+            app.MapGet("/", () => "hi");
             app.Run();
 
         }
     }
 }
-

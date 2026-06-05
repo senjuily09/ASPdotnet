@@ -9,7 +9,7 @@ namespace ASPdotnet.Controllers
         [HttpGet]
         public IActionResult GetStudents()
         {
-            return Ok("Changed");
+            return Ok("erroe");
         }
 
         [HttpPost]
@@ -51,8 +51,8 @@ namespace ASPdotnet.Controllers
                     Department = "ECE"
                 }
             };
-
             return Ok(students);
+
         }
     }
 }
