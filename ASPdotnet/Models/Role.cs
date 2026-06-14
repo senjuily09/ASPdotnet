@@ -1,15 +1,17 @@
-﻿using ASPdotnet.Models;
-
-namespace ASPdotnet.Models
+﻿namespace ASPdotnet.Models
 {
     public class Role
     {
         public int Id { get; set; }
 
-        public string Name { get; set; } = string.Empty;
+        public string RoleName { get; set; } = string.Empty;
 
-        public ICollection<User> Users { get; set; } = new List<User>();
 
-        public ICollection<RolePrivilege> RolePrivileges { get; set; } = new List<RolePrivilege>();
+        // Users having this role
+        public ICollection<User>? Users { get; set; }
+
+
+        // Privileges of this role
+        public ICollection<RolePrivilege>? RolePrivileges { get; set; }
     }
 }

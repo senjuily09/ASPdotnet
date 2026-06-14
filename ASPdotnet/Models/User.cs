@@ -1,6 +1,4 @@
-﻿using ASPdotnet.Models;
-
-namespace ASPdotnet.Models
+﻿namespace ASPdotnet.Models
 {
     public class User
     {
@@ -8,8 +6,7 @@ namespace ASPdotnet.Models
 
         public string UserName { get; set; } = string.Empty;
 
-        public string Email { get; set; } = string.Empty;
-
+        // Every user belongs to one role
         public int RoleId { get; set; }
 
         public Role? Role { get; set; }
