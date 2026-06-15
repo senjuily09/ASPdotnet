@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ASPdotnet.Data;
 using ASPdotnet.Models;
 
@@ -16,33 +15,18 @@ namespace ASPdotnet.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Privilege>>> GetPrivileges()
-        {
-            return await _context.Privileges.ToListAsync();
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Privilege>> GetPrivilege(int id)
-        {
-            var privilege = await _context.Privileges.FindAsync(id);
-
-            if (privilege == null)
-                return NotFound();
-
-            return privilege;
-        }
-
         [HttpPost]
-        public async Task<ActionResult<Privilege>> CreatePrivilege(Privilege privilege)
+        public IActionResult Create(Privilege privilege)
         {
             _context.Privileges.Add(privilege);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
+            return Ok(privilege);
+        }
 
-            return CreatedAtAction(
-                nameof(GetPrivilege),
-                new { id = privilege.Id },
-                privilege);
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(_context.Privileges.ToList());
         }
     }
 }

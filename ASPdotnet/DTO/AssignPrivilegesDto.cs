@@ -1,7 +1,8 @@
-﻿namespace ASPdotnet.DTOs
+﻿namespace ASPdotnet.DTO
 {
     public class AssignPrivilegesDto
     {
-        public List<int> PrivilegeIds { get; set; } = new();
+        public int RoleId { get; set; }
+        public int PrivilegeId { get; set; }
     }
 }

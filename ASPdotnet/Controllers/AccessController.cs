@@ -1,58 +1,34 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using ASPdotnet.Data;
-
+using ASPdotnet.Models;
+using ASPdotnet.DTO;
 
 namespace ASPdotnet.Controllers
 {
-
     [ApiController]
-    [Route("api/access")]
+    [Route("api/[controller]")]
     public class AccessController : ControllerBase
     {
-
         private readonly ApplicationDbContext _context;
-
 
         public AccessController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-
-
-        [HttpGet("user/{id}")]
-
-        public async Task<IActionResult> GetUserPrivileges(int id)
+        [HttpPost("assign-privilege")]
+        public IActionResult AssignPrivilege(AssignPrivilegesDto dto)
         {
-
-            var user = await _context.Users
-                .Include(u => u.Role!)
-                .ThenInclude(r => r.RolePrivileges!)
-                .ThenInclude(rp => rp.Privilege)
-                .FirstOrDefaultAsync(u => u.Id == id);
-
-
-
-            if (user == null)
-                return NotFound();
-
-
-
-            return Ok(new
+            var rp = new RolePrivilege
             {
-                User = user.UserName,
+                RoleId = dto.RoleId,
+                PrivilegeId = dto.PrivilegeId
+            };
 
-                Role = user.Role!.RoleName,
+            _context.RolePrivileges.Add(rp);
+            _context.SaveChanges();
 
-
-                Privileges = user.Role.RolePrivileges
-                .Select(x => x.Privilege!.PrivilegeName)
-
-            });
-
+            return Ok(rp);
         }
-
     }
-
 }
