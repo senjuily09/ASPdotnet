@@ -5,7 +5,6 @@ namespace ASPdotnet.Data
 {
     public class ApplicationDbContext : DbContext
     {
-
         public ApplicationDbContext(
             DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -26,34 +25,30 @@ namespace ASPdotnet.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            // Composite Primary Key
+            // RolePrivilege primary key
             modelBuilder.Entity<RolePrivilege>()
-                .HasKey(x => new
+                .HasKey(rp => new
                 {
-                    x.RoleId,
-                    x.PrivilegeId
+                    rp.RoleId,
+                    rp.PrivilegeId
                 });
 
 
-
-            // User -> Role
+            // User belongs to one Role
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Role)
                 .WithMany(r => r.Users)
                 .HasForeignKey(u => u.RoleId);
 
 
-
-            // Role -> Privilege
+            // Role has many RolePrivileges
             modelBuilder.Entity<RolePrivilege>()
                 .HasOne(rp => rp.Role)
                 .WithMany(r => r.RolePrivileges)
                 .HasForeignKey(rp => rp.RoleId);
 
 
-
-            // Privilege -> Role
+            // Privilege has many RolePrivileges
             modelBuilder.Entity<RolePrivilege>()
                 .HasOne(rp => rp.Privilege)
                 .WithMany(p => p.RolePrivileges)
@@ -100,7 +95,6 @@ namespace ASPdotnet.Data
                     Id = 3,
                     PrivilegeName = "View Profile"
                 }
-
             );
 
 
@@ -109,7 +103,6 @@ namespace ASPdotnet.Data
 
             modelBuilder.Entity<RolePrivilege>().HasData(
 
-                // Admin privileges
                 new RolePrivilege
                 {
                     RoleId = 1,
@@ -122,16 +115,12 @@ namespace ASPdotnet.Data
                     PrivilegeId = 2
                 },
 
-
-                // Employee privileges
                 new RolePrivilege
                 {
                     RoleId = 2,
                     PrivilegeId = 3
                 }
-
             );
-
         }
     }
 }
